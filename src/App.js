@@ -1,24 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Login from './auth/Login';
+import Signup from './auth/Signup';
+import 'typeface-indie-flower';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
+import Home from './home/HomePage';
+
 
 function App() {
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+<Router>
+  <Route exact path= "/signup" component={Signup}/>
+  <Route exact path= "/login" component={Login}/>
+  <Route exact path= "/home" component={Home}/>
+  {/* <Route exact path= "/uploadpage" component={UploadPage}/> */}
+</Router>
     </div>
   );
 }
