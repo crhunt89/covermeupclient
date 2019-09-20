@@ -4,28 +4,28 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
 import AlbumIcon from '@material-ui/icons/Album';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import blueGrey from '@material-ui/core/colors/blueGrey';
 import grey from '@material-ui/core/colors/grey';
 import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 
 const Login = (props) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch('http://localhost:3000/covermeup/user/login', {
+    fetch("http://localhost:3000/covermeup/user/login", {
       method: 'POST',
-      body: JSON.stringify({ user: { username: username, password: password } }),
+      body: JSON.stringify({ username: username, password: password } ),
       headers: new Headers({
         'Content-Type': 'application/json'
       })
     }).then((response) => response.json()
-    ).then((data) => {
-      props.updateToken(data.sessionToken);
+    ).then((data) => {props.updateToken(data.sessionToken);
     })
   }
   const useStyles = makeStyles(theme => ({
@@ -67,18 +67,17 @@ const Login = (props) => {
           <AlbumIcon />
         </Avatar>
         <Typography component="h1" variant="h5">Login</Typography>
-        <form className={classes.form} onSubmit= {handleSubmit} noValidate>
+        <form className={classes.form} onSubmit= {handleSubmit}>
           <TextField variant="outlined" margin="normal" onChange= {(e) => setUsername(e.target.value)} required fullWidth id="username" label="User Name" name="username" autoFocus />
           <TextField variant="outlined" margin="normal" onChange= {(e) => setPassword(e.target.value)} required fullWidth name="password" label="Password" type="password" id="password" />
-          <Button className={classes.submit} type="submit" fullWidth variant="contained" color="primary">Login</Button>
-          <Grid container>
-            <Grid item xs></Grid>
+          <Link href="/home"><Button className={classes.submit} type="submit" fullWidth variant="contained" color="primary">Login</Button></Link>
+          <Grid container justify="flex-end">
             <Grid item>
-            <Link href="/signup" variant= "body2">
-              Don't have an account? Sign Up
-            </Link>
+              <Link href="/signup" variant="body2">
+                Don't have an account? Sign Up
+              </Link>
             </Grid>
-          </Grid>
+          </Grid>   
         </form>
       </div>
     </Container>
