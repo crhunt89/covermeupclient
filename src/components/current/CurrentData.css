@@ -1,0 +1,14 @@
+table, td{
+  padding: 10px;
+  border-collapse: collapse;
+}
+thead{
+  background-color: whitesmoke;
+  border-bottom: 2px solid darkslategrey;
+}
+tr{
+  border-bottom: 1px solid lightgrey;
+}
+table{
+  margin: 25vh auto;
+}
