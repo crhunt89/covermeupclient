@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import Covermeup from '../assets/covermeup.jpg';
 import Upload from '../upload/Upload';
 import UploadTable from '../current/UploadTable';
 import EditUpload from '../current/EditUpload';
@@ -12,9 +11,9 @@ import { blueGrey } from '@material-ui/core/colors';
 const useStyles = makeStyles(theme => ({
   heroContent: {
     padding: theme.spacing(8, 0, 6),
-    backgroundColor: blueGrey[300],
-    backgroundSize: 'cover',
-    overflow: 'hidden',
+    // backgroundColor: blueGrey[500],
+    // backgroundSize: 'cover',
+    // overflow: 'hidden',
   },
   
 }));
