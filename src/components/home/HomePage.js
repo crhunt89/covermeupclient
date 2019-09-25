@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import Covermeup from '../assets/covermeup.jpg';
 import Upload from '../upload/Upload';
 import UploadTable from '../current/UploadTable';
 import EditUpload from '../current/EditUpload';
@@ -21,8 +22,7 @@ const Home = (props) => {
   const classes = useStyles();
   const [videos, setVideos] = useState([]);
   const [updateActive, setUpdateActive] = useState(false);
-  const [tableToUpdate, setTableToUpdate] = useState({});
-  
+  const [videoToUpdate, setVideoToUpdate] = useState({});
   const fetchVideos = () => {
     fetch(`${APIURL}/covermeup/info`, {
       method: 'GET',
@@ -39,7 +39,7 @@ const Home = (props) => {
     fetchVideos();
   }, [])
   const tableToUpdate = (videos) => {
-    setTableToUpdate(videos);
+    setVideoToUpdate(videos);
     console.log(videos);
   }
   const updateOn = () => {
