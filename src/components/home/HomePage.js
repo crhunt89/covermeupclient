@@ -2,16 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import Covermeup from '../assets/covermeup.jpg';
 import Upload from '../upload/Upload';
 import UploadTable from '../current/UploadTable';
 import EditUpload from '../current/EditUpload';
 import APIURL from '../../helpers/enviorenment';
+import { blueGrey } from '@material-ui/core/colors';
 
 const useStyles = makeStyles(theme => ({
   heroContent: {
     padding: theme.spacing(8, 0, 6),
-    backgroundImage: `url(${Covermeup})`,
+    backgroundColor: blueGrey[300],
     backgroundSize: 'cover',
     overflow: 'hidden',
   },
@@ -21,7 +21,8 @@ const Home = (props) => {
   const classes = useStyles();
   const [videos, setVideos] = useState([]);
   const [updateActive, setUpdateActive] = useState(false);
-  const [videoToUpdate, setVideoToUpdate] = useState({});
+  const [tableToUpdate, setTableToUpdate] = useState({});
+  
   const fetchVideos = () => {
     fetch(`${APIURL}/covermeup/info`, {
       method: 'GET',
@@ -38,7 +39,7 @@ const Home = (props) => {
     fetchVideos();
   }, [])
   const tableToUpdate = (videos) => {
-    setVideoToUpdate(videos);
+    setTableToUpdate(videos);
     console.log(videos);
   }
   const updateOn = () => {

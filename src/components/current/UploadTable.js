@@ -7,6 +7,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import grey from '@material-ui/core/colors';
 import EditUpload from './EditUpload';
 import APIURL from '../../helpers/enviorenment';
 
@@ -22,6 +23,8 @@ const useStyles = makeStyles(theme => ({
   },
   table: {
     minWidth: 650,
+    backgroundColor: grey[900],
+    color: grey[50],
   },
   button: {
     margin: theme.spacing(1),
@@ -59,7 +62,7 @@ const UploadTable = (props) => {
                 <TableCell align="right">{videos.artist}</TableCell>
                 <TableCell align="right">{videos.nameOfContest}</TableCell>
                 <TableCell align="right">{videos.video}</TableCell>
-                <TableCell align="right"><Button variant="contained" color="primary" onClick={() => {props.videoToUpdate(videos); props.updateOn()}} className={classes.button}>Update</Button>
+                <TableCell align="right"><Button variant="contained" color="primary" onClick={() => {props.tableToUpdate(videos); props.updateOn()}} className={classes.button}>Update</Button>
                 <Button variant="contained" color="secondary" className={classes.button} onClick={() => {deleteUpload(videos)}}>Delete</Button>
                 </TableCell>
               </TableRow>

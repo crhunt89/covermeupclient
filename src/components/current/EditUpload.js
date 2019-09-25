@@ -12,6 +12,7 @@ const EditUpload = (props) => {
   const [editName, setEditName] = useState(props.videoToUpdate.name)
   const [editContest, setEditContest] = useState(props.videoToUpdate.contest);
   const [editUrl, setEditUrl] = useState(props.videoToUpdate.url);
+  
   const videoUpload = (event, videos) => {
     event.preventDefault();
     fetch(`${APIURL}/covermeup/${props.videoToUpdate.id}`, {
@@ -33,7 +34,7 @@ const EditUpload = (props) => {
 
   return(
     <div>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <Dialog isOpen={true} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Update Info</DialogTitle>
         <DialogContent>
           <DialogContentText>
