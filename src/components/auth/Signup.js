@@ -3,13 +3,13 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import AlbumIcon from '@material-ui/icons/Album';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import {grey, blueGrey} from '@material-ui/core/colors';
 import Container from '@material-ui/core/Container';
+import APIURL from '../../helpers/enviorenment';
 
 const Signup = (props) => {
   const [firstName, setFirstName] = useState('');
@@ -20,7 +20,7 @@ const Signup = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("http://localhost:3000/covermeup/user/signup", {
+    fetch(`${APIURL}/covermeup/user/signup`, {
       method: 'POST',
       body: JSON.stringify({ firtsName: firstName, lastName: lastName, username: username, password: password, email: email, }),
       headers: new Headers({
@@ -65,7 +65,6 @@ const Signup = (props) => {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Typography component="h1" variant="h2">Cover Me Up</Typography>
         <Avatar className={classes.avatar}>
           <AlbumIcon />
         </Avatar>
@@ -133,13 +132,6 @@ const Signup = (props) => {
             </Grid>
           </Grid>
           <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>Sign Up</Button>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Link href="/" variant="body2">
-                Already have an account? Log In
-              </Link>
-            </Grid>
-          </Grid>
         </form>
       </div>
     </Container>

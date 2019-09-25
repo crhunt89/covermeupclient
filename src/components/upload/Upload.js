@@ -1,4 +1,4 @@
-import { React, useState, useEffect, useRef, } from 'react';
+import React, { useState, useEffect, useRef, } from 'react';
 import { makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
@@ -9,6 +9,7 @@ import Avatar from '@material-ui/core/Avatar';
 import AlbumIcon from '@material-ui/icons/Album';
 import { grey, green } from '@material-ui/core/colors';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import APIURL from '../../helpers/enviorenment';
 
 
 const useStyles = makeStyles(theme => ({
@@ -59,8 +60,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Current = () => {
+const Current = (props) => {
   const classes = useStyles();
+  const [name, setName] = useState('');
+  const [contest, setContest] = useState('');
+  const [url, setUrl] = useState('');
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const timer = useRef();
@@ -71,7 +75,23 @@ const Current = () => {
     };
   }, []);
 
-  function handleButtonClick() {
+  function handleButtonClick(e) {
+    e.preventDefault();
+    fetch(`${APIURL}/covermeup/upload`, {
+      method: 'POST',
+      body: JSON.stringify({ artist: name, nameOfContest: contest, video: url }),
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Authorization': props.token
+      })
+    }).then((res) => res.json())
+      .then((logData) => {
+        console.log(logData);
+        setName('');
+        setContest('');
+        setUrl('');
+        props.fetch();
+      })
     if (!loading) {
       setSuccess(false);
       setLoading(true);
@@ -92,7 +112,9 @@ const Current = () => {
           <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>Upload video</Typography>
           <Avatar className={classes.avatar}><AlbumIcon /></Avatar>
           <form className={classes.form} noValidate>
-            <TextField variant="outlined" margin="normal" required fullWidth id="url" label="URL" name="url" autoFocus />
+            <TextField variant="outlined" margin="normal" required fullWidth id="name" label="Name" name="name" value={name} onChange={(e) => setName(e.target.value)} autoFocus />
+            <TextField variant="outlined" margin="normal" required fullWidth id="contest" label="Contest" name="contest" value={contest} onChange={(e) => setContest(e.target.value)} autoFocus />
+            <TextField variant="outlined" margin="normal" required fullWidth id="url" label="URL" name="url" value={url} onChange={(e) => setUrl(e.target.value)} autoFocus />
             <Button className={classes.submit} type="submit" fullWidth variant="contained" color="primary" disabled={loading} onClick={handleButtonClick}><BackupIcon /></Button>
             {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
           </form>

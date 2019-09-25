@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import 'typeface-indie-flower';
-import Login from './components/auth/Login';
-import Signup from './components/auth/Signup';
+import Auth from './components/auth/Auth'
 import Home from './components/home/HomePage';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Navigation from './components/navbar/Navbar';
 
 
-function App() {
+
+function App(props) {
   const [sessionToken, setSessionToken] = useState('');
-
+  // const [token, setToken] = useState(undefined)
+  
   useEffect(() => {
     if (localStorage.getItem('token')) {
       setSessionToken(localStorage.getItem('token'));
@@ -24,17 +25,25 @@ function App() {
     localStorage.clear();
     setSessionToken('');
   }
+  // let storedSessionToken= (token) => {
+  //   setToken(token)
+  // }
+  const protectedViews = () => {
+    return (sessionToken === localStorage.getItem('token') ? <Home token={sessionToken}/> : <Auth updateToken={updateToken}/>)
+  }
 
   return (
     <div className="App">
-      <Router>
+      <Navigation clickLogout={clearToken}/>
+      {protectedViews()}
+      {/* <Router>
         <Route exact path="/" return={() => (<Login updateToken={updateToken} />)}/>
         <Route exact path="/" component={Login} />
         <Route exact path="/signup" return={() => (<Signup updateToken={updateToken}/>)}/>
         <Route exact path="/signup" component={Signup}/>
         <Route exact path="/home" return={() => (<Home clickLogout={clearToken}/>)}/>
         <Route exact path="/home" component={Home} />
-      </Router>
+      </Router> */}
     </div>
   );
 }

@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Covermeup from '../assets/covermeup.jpg';
-import Navigation from '../navbar/Navbar';
-import Current from '../voting/Voting';
-import Contest from '../current/CurrentData';
+import Upload from '../upload/Upload';
+import UploadTable from '../current/UploadTable';
+import EditUpload from '../current/EditUpload';
+import APIURL from '../../helpers/enviorenment';
 
 const useStyles = makeStyles(theme => ({
   heroContent: {
@@ -16,13 +17,40 @@ const useStyles = makeStyles(theme => ({
   },
   
 }));
-const Home = () => {
+const Home = (props) => {
   const classes = useStyles();
+  const [videos, setVideos] = useState([]);
+  const [updateActive, setUpdateActive] = useState(false);
+  const [videoToUpdate, setVideoToUpdate] = useState({});
+  const fetchVideos = () => {
+    fetch(`${APIURL}/covermeup/info`, {
+      method: 'GET',
+      header: new Headers ({
+        'Content-Type' : 'application/json',
+        'Authorization': props.token
+      })
+    }).then((res) => res.json())
+    .then((logData) => {
+      setVideos(logData)
+    })
+  }
+  useEffect(() => {
+    fetchVideos();
+  }, [])
+  const tableToUpdate = (videos) => {
+    setVideoToUpdate(videos);
+    console.log(videos);
+  }
+  const updateOn = () => {
+    setUpdateActive(true);
+  }
+  const updateOff = () => {
+    setUpdateActive(false);
+  }
 
   return (
     <div className={classes.page}>
       <div className={classes.root}>
-        <Navigation/>
         <div className={classes.heroContent}>
           <Container maxWidth="sm">
             <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>Cover Me Up</Typography>
@@ -30,8 +58,9 @@ const Home = () => {
           </Container>
           </div>
         </div>
-        <Current/>
-        <Contest/>
+        <Upload fetchVideos={fetchVideos} token={props.token}/>
+        <UploadTable videos={videos}  tableToUpdate= {tableToUpdate} updateOn= {updateOn} fetchVideos={fetchVideos} token={props.token}/>
+        {updateActive ? <EditUpload tableToUpdate={tableToUpdate} updateOff={updateOff} token={props.token} fetchVideos={fetchVideos}/> : <></>}
     </div>
   );
 }
