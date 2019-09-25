@@ -22,7 +22,7 @@ const Signup = (props) => {
     e.preventDefault();
     fetch(`${APIURL}/covermeup/user/signup`, {
       method: 'POST',
-      body: JSON.stringify({ firtsName: firstName, lastName: lastName, username: username, password: password, email: email, }),
+      body: JSON.stringify({ firstName: firstName, lastName: lastName, username: username, password: password, email: email, }),
       headers: new Headers({
         'Content-Type': 'application/json'
       })
