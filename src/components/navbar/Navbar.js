@@ -15,8 +15,6 @@ import HowToVoteIcon from '@material-ui/icons/HowToVote';
 import FeaturedPlayListIcon from '@material-ui/icons/FeaturedPlayList';
 import UpdateIcon from '@material-ui/icons/Update';
 import HomeIcon from '@material-ui/icons/Home';
-import Voting from '../voting/Voting';
-import {BrowserRouter as Router, Switch, Link, Route} from 'react-router-dom'; 
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -72,8 +70,6 @@ const Navigation = (props) => {
   };
   return (
     <div className={classes.root}>
-      <Router>
-        <Switch>
           <AppBar position="static">
             <Toolbar>
               <IconButton edge="start" className={classes.menuButton} aria-controls="customized-menu" aria-haspopup="true" variant="contained" color="inherit" aria-label="menu" onClick={handleClick}>
@@ -86,10 +82,10 @@ const Navigation = (props) => {
                   </ListItemIcon>
                   <ListItemText primary="Home" />
                 </StyledMenuItem>
-                <StyledMenuItem href="/voting">
-                <Link><ListItemIcon href="/voting">
+                <StyledMenuItem>
+                <ListItemIcon>
                     <HowToVoteIcon />
-                  </ListItemIcon></Link>
+                  </ListItemIcon>
                   <ListItemText primary="Voting" />
                 </StyledMenuItem>
                 <StyledMenuItem>
@@ -110,9 +106,6 @@ const Navigation = (props) => {
               <Button color="inherit" onClick={props.clickLogout}><MeetingRoomIcon /></Button>
             </Toolbar>
       </AppBar>
-      <Route exact path="/voting" component={Voting}/>
-        </Switch>
-        </Router>
     </div>
   );
 }

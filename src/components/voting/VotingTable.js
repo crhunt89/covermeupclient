@@ -23,11 +23,6 @@ const useStyles = makeStyles(theme => ({
 const VotingTable = (props) => {
   const classes = useStyles();
 
-let clicks = 0;
-function voter() {
-  clicks += 1;
-};
-
   return(
     <div>
       <Paper className={classes.root}>
