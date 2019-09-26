@@ -51,7 +51,7 @@ const Signup = (props) => {
     form: {
       width: '100%',
       marginTop: theme.spacing(3),
-      color: grey[50],
+      color: grey[900],
     },
     submit: {
       margin: theme.spacing(3, 0, 2),

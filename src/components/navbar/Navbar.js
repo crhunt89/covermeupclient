@@ -14,6 +14,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import HowToVoteIcon from '@material-ui/icons/HowToVote';
 import FeaturedPlayListIcon from '@material-ui/icons/FeaturedPlayList';
 import UpdateIcon from '@material-ui/icons/Update';
+import HomeIcon from '@material-ui/icons/Home';
+import Voting from '../voting/Voting';
+import {BrowserRouter as Router, Switch, Link, Route} from 'react-router-dom'; 
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -67,44 +70,49 @@ const Navigation = (props) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-return (
+  return (
     <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} aria-controls="customized-menu" aria-haspopup="true" variant="contained" color="inherit" aria-label="menu" onClick= {handleClick}>
-            <MenuIcon />
-          </IconButton>
-          <StyledMenu
-        id="customized-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <StyledMenuItem>
-          <ListItemIcon>
-            <HowToVoteIcon/>
-          </ListItemIcon>
-          <ListItemText primary="Voting"/>
-        </StyledMenuItem>
-        <StyledMenuItem>
-          <ListItemIcon>
-            <UpdateIcon/>
-          </ListItemIcon>
-          <ListItemText primary="Past Contest"/>
-        </StyledMenuItem>
-        <StyledMenuItem>
-          <ListItemIcon>
-            <FeaturedPlayListIcon/>
-          </ListItemIcon>
-          <ListItemText primary="Featured Artist" />
-        </StyledMenuItem>
-      </StyledMenu>
-          <Typography variant="h6" className={classes.title}>
-          </Typography>
-          <Button color="inherit" onClick= {props.clickLogout}><MeetingRoomIcon/></Button>
-        </Toolbar>
+      <Router>
+        <Switch>
+          <AppBar position="static">
+            <Toolbar>
+              <IconButton edge="start" className={classes.menuButton} aria-controls="customized-menu" aria-haspopup="true" variant="contained" color="inherit" aria-label="menu" onClick={handleClick}>
+                <MenuIcon />
+              </IconButton>
+              <StyledMenu id="customized-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
+                <StyledMenuItem>
+                  <ListItemIcon href="/home">
+                    <HomeIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Home" />
+                </StyledMenuItem>
+                <StyledMenuItem href="/voting">
+                <Link><ListItemIcon href="/voting">
+                    <HowToVoteIcon />
+                  </ListItemIcon></Link>
+                  <ListItemText primary="Voting" />
+                </StyledMenuItem>
+                <StyledMenuItem>
+                  <ListItemIcon>
+                    <UpdateIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Past Contest" />
+                </StyledMenuItem>
+                <StyledMenuItem>
+                  <ListItemIcon>
+                    <FeaturedPlayListIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Featured Artist" />
+                </StyledMenuItem>
+              </StyledMenu>
+              <Typography variant="h6" className={classes.title}>
+              </Typography>
+              <Button color="inherit" onClick={props.clickLogout}><MeetingRoomIcon /></Button>
+            </Toolbar>
       </AppBar>
+      <Route exact path="/voting" component={Voting}/>
+        </Switch>
+        </Router>
     </div>
   );
 }

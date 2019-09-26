@@ -4,8 +4,10 @@ import 'typeface-indie-flower';
 import Auth from './components/auth/Auth'
 import Home from './components/home/HomePage';
 import Navigation from './components/navbar/Navbar';
-
-
+import Featured from './components/featured/Featured';
+import Voting from './components/voting/Voting';
+import Past from './components/past/Past';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App(props) {
   const [sessionToken, setSessionToken] = useState('');
@@ -36,14 +38,13 @@ function App(props) {
     <div className="App">
       <Navigation clickLogout={clearToken}/>
       {protectedViews()}
-      {/* <Router>
-        <Route exact path="/" return={() => (<Login updateToken={updateToken} />)}/>
-        <Route exact path="/" component={Login} />
-        <Route exact path="/signup" return={() => (<Signup updateToken={updateToken}/>)}/>
-        <Route exact path="/signup" component={Signup}/>
-        <Route exact path="/home" return={() => (<Home clickLogout={clearToken}/>)}/>
-        <Route exact path="/home" component={Home} />
-      </Router> */}
+      <Router>
+        <Switch>
+          <Route exact path="/voting" component={Voting} />
+          <Route exact path="/featured" component={Featured} />
+          <Route exact path="/past" component={Past} />
+        </Switch>
+      </Router>
     </div>
   );
 }

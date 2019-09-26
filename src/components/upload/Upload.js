@@ -7,7 +7,7 @@ import BackupIcon from '@material-ui/icons/Backup';
 import TextField from '@material-ui/core/TextField';
 import Avatar from '@material-ui/core/Avatar';
 import AlbumIcon from '@material-ui/icons/Album';
-import { grey, green } from '@material-ui/core/colors';
+import { grey, green, blue } from '@material-ui/core/colors';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import APIURL from '../../helpers/enviorenment';
 
@@ -15,6 +15,7 @@ import APIURL from '../../helpers/enviorenment';
 const useStyles = makeStyles(theme => ({
   heroContent: {
     padding: theme.spacing(8, 0, 6),
+    color: blue[400],
   },
   main: {
     maxWidth: 444,
@@ -41,7 +42,7 @@ const useStyles = makeStyles(theme => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-    background: 'linear-gradient(45deg, #212121 30%, #9e9e9e 90%)',
+    background: 'linear-gradient(45deg, #01579b 40%, #81d4fa 90%)',
     boxShadow: '0 3px 5px 2px grey[900]',
   },
   buttonSuccess: {
@@ -90,7 +91,7 @@ const Current = (props) => {
         setName('');
         setContest('');
         setUrl('');
-        props.fetch();
+        props.fetchVideos();
       })
     if (!loading) {
       setSuccess(false);
@@ -105,11 +106,11 @@ const Current = (props) => {
     <div className={classes.heroContent}>
       <Container maxWidth="sm">
         <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>Current Contest</Typography>
-        <Typography variant="h5" align="center" color="textSecondary" paragraph>What is this page all about?</Typography>
+        <Typography variant="h5" align="center" color="textSecondary" paragraph>This Month's contest is "Wild Card"!! Cover whatever band and song you want then please use the Upload Video section below. Please have your video uploaded by October 21st when the voting starts!</Typography>
       </Container>
       <Container className={classes.main}>
         <div className={classes.paper}>
-          <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>Upload video</Typography>
+          <Typography component="h3" variant="h4" align="center" color="textPrimary" gutterBottom>Upload video</Typography>
           <Avatar className={classes.avatar}><AlbumIcon /></Avatar>
           <form className={classes.form} noValidate>
             <TextField variant="outlined" margin="normal" required fullWidth id="name" label="Name" name="name" value={name} onChange={(e) => setName(e.target.value)} autoFocus />

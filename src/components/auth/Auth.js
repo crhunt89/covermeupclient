@@ -2,12 +2,10 @@ import React from 'react';
 import Login from './Login';
 import Signup from './Signup'
 import { makeStyles } from '@material-ui/core/styles';
-import Covermeup from '../assets/covermeup.jpg'
 import { grey } from '@material-ui/core/colors';
 
 const useStyles = makeStyles(theme => ({
   background: {
-    backgroundImage: `url(${Covermeup})`,
     backgroundSize: 'cover',
     overflow: 'hidden',
     fontWeight: 700,

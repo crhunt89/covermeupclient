@@ -9,13 +9,14 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import APIURL from '../../helpers/enviorenment';
 
 const EditUpload = (props) => {
-  const [editName, setEditName] = useState(props.videoToUpdate.name)
-  const [editContest, setEditContest] = useState(props.videoToUpdate.contest);
-  const [editUrl, setEditUrl] = useState(props.videoToUpdate.url);
+  const [editName, setEditName] = useState(props.tableToUpdate.name)
+  const [editContest, setEditContest] = useState(props.tableToUpdate.contest);
+  const [editUrl, setEditUrl] = useState(props.tableToUpdate.url);
   
-  const videoUpload = (event, videos) => {
-    event.preventDefault();
-    fetch(`${APIURL}/covermeup/${props.videoToUpdate.id}`, {
+  const videoUpload = (e) => {
+    e.preventDefault();
+    console.log('videoUpload hit!')
+    fetch(`${APIURL}/covermeup/${props.tableToUpdate.id}`, {
       method: 'PUT',
       body: JSON.stringify({artist: editName, nameOfContest: editContest, video: editUrl}),
       headers: new Headers({
@@ -23,37 +24,31 @@ const EditUpload = (props) => {
         'Authorization': props.token
       })
     }).then((res) => {
-      props.fetchVideo();
+      props.fetchVideos();
       props.updateOff();
     })
   }
-  const [open, setOpen] = useState(false);
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   return(
     <div>
-      <Dialog isOpen={true} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Update Info</DialogTitle>
+      <Dialog open={true}>
+          <form onSubmit={(e) => videoUpload(e)}>
+        <DialogTitle >Update Info</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Please fill out the field below with the updated information. Then click the update button to finish.  
           </DialogContentText>
-            <TextField variant="outlined" margin="normal" required fullWidth id="name" label="Name" name="name" value={editName} onChange={(e) => setEditName(e.target.value)} autoFocus />
-            <TextField variant="outlined" margin="normal" required fullWidth id="contest" label="Contest" name="contest" value={editContest} onChange={(e) => setEditContest(e.target.value)} autoFocus />
-            <TextField variant="outlined" margin="normal" required fullWidth id="url" label="URL" name="url" value={editUrl} onChange={(e) => setEditUrl(e.target.value)} autoFocus />
+            <TextField variant="outlined" margin="normal" fullWidth id="name" label="Name" name="editName" value={editName} onChange={(e) => setEditName(e.target.value)} autoFocus />
+            <TextField variant="outlined" margin="normal" fullWidth id="contest" label="Contest" name="editContest" value={editContest} onChange={(e) => setEditContest(e.target.value)} autoFocus />
+            <TextField variant="outlined" margin="normal" fullWidth id="url" label="URL" name="editUrl" value={editUrl} onChange={(e) => setEditUrl(e.target.value)} autoFocus />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button type="submit" onSubmit={videoUpload} color="primary">
-            Update
-          </Button>
+          <Button onClick={props.updateOff} color="primary">Cancel</Button>
+          <Button type="submit" color="primary">Update</Button>
         </DialogActions>
+          </form>
       </Dialog>
     </div>
-  )
-}
+  );
+};
 export default EditUpload;

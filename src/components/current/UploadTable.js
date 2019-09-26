@@ -7,13 +7,13 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import grey from '@material-ui/core/colors/grey';
-import EditUpload from './EditUpload';
 import APIURL from '../../helpers/enviorenment';
+import { blueGrey, grey } from '@material-ui/core/colors';
 
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
+    color: grey[50],
   },
   paper: {
     marginTop: theme.spacing(3),
@@ -23,8 +23,7 @@ const useStyles = makeStyles(theme => ({
   },
   table: {
     minWidth: 650,
-    backgroundColor: grey[900],
-    color: grey[50],
+    backgroundColor: blueGrey[500],
   },
   button: {
     margin: theme.spacing(1),
@@ -44,6 +43,7 @@ const UploadTable = (props) => {
     }).then(() => props.fetchVideos())
   }
   console.log(props.videos);
+  
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
@@ -58,10 +58,9 @@ const UploadTable = (props) => {
           <TableBody>
             {props.videos.map((videos, index) => (
               <TableRow key={index}>
-                {/* <TableCell component="th" scope="row">{row.name}</TableCell> */}
                 <TableCell align="right">{videos.artist}</TableCell>
                 <TableCell align="right">{videos.nameOfContest}</TableCell>
-                <TableCell align="right">{videos.video}</TableCell>
+                <TableCell align="right"><a href={videos.video} target="_blank">{videos.video}</a></TableCell>
                 <TableCell align="right"><Button variant="contained" color="primary" onClick={() => {props.tableToUpdate(videos); props.updateOn()}} className={classes.button}>Update</Button>
                 <Button variant="contained" color="secondary" className={classes.button} onClick={() => {deleteUpload(videos)}}>Delete</Button>
                 </TableCell>
