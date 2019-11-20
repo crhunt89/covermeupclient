@@ -56,6 +56,7 @@ const UploadTable = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
+            {/* This is my only array method that was used. The .map() goes into my videos array in the database and goes over each object, it then populates each object into the table that is below into their correct location on the table. It knows these spots because of matching string interpulation. */}
             {props.videos.map((videos, index) => (
               <TableRow key={index}>
                 <TableCell align="right">{videos.artist}</TableCell>

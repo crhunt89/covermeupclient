@@ -59,7 +59,9 @@ const Home = (props) => {
             <Upload fetchVideos={fetchVideos} token={props.token}/>
           </Container>
           </div>
-        <UploadTable videos={videos}  tableToUpdate= {tableToUpdate} updateOn= {updateOn} fetchVideos={fetchVideos} token={props.token}/>
+        <UploadTable videos={videos}  tableToUpdate= {tableToUpdate} updateOn= {updateOn} fetchVideos={fetchVideos} token={props.token}/> 
+        {/* This ^^^^ is a prop being passed in from the App.js page I believe. It's passing in the token that was created by logging in or signing up  */}
+        {/* This ternary below is to get the edit modal to populate on screen. In easy terms it's going to see if the updateOn() is triggered. If it is then it will display the EditUpload page (modal) if not then it will not display. The other things that are in there are props that are connected to the EditUpload page. */}
         {updateActive ? <EditUpload tableToUpdate={tableToUpdate} updateOff={updateOff} token={props.token} fetchVideos={fetchVideos}/> : <></>}
     </div>
   );

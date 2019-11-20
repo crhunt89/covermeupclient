@@ -8,6 +8,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import APIURL from '../../helpers/enviorenment';
 
+// This is one of my props. It's used in the UploadTable because it populates from a button and then passes this information back to the UploadTable. 
 const EditUpload = (props) => {
   const [editName, setEditName] = useState(props.tableToUpdate.name)
   const [editContest, setEditContest] = useState(props.tableToUpdate.contest);
